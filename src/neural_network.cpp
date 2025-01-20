@@ -4,7 +4,6 @@ using namespace std;
 double h = 1e-5;
 uint32_t seed_nn = static_cast<uint32_t>(std::time(0));
 
-
 ///////////////////////////////////////////////////////////////////////////////
 /// Create class functions.
 ///////////////////////////////////////////////////////////////////////////////
@@ -247,16 +246,6 @@ double Neural_Network::derivative_loss(loss_func f,double x,double y){
 ///////////////////////////////////////////////////////////////////////////////
 /// backpropagation
 ///////////////////////////////////////////////////////////////////////////////
-
-// Función que se encarga de crear un caso de prueba para probar los algoritmos.
-void caso_prueba(Neural_Network &neural_network){
-   Matrix<double> weights1 = {{-1.65021,2.35997,-2.31615},{0.372564,3.65033,-4.88494}};
-   neural_network.add_layer(weights1);
-   Matrix<double> weights2 = {{0.298373,3.27115},{-2.55707,3.78064},{4.93354,-0.813816},{1.26212,-0.483909}};
-   neural_network.add_layer(weights2);
-   return;
-}
-
 // Función que se encarga de rellenar la matriz que se le pase a partir de la derivada de la función de activación
 // respecto a los valores de la matriz señal que se le pase, se asume que la señal posee dimensiones Nx1.
 void Neural_Network::fill_sensitive(func f_act,Matrix<double> &sensitive,const Matrix<double> &signal){
@@ -463,8 +452,7 @@ vector<string> get_tokens(string &s, string &delimiters){
     return tokens;
 }
 
-template<class T,class U>
-void read_file(vector<Matrix<T>> &data_points,vector<U> &outputs,string &filename){
+void Neural_Network::read_file(vector<Matrix<double>> &data_points,vector<unsigned int> &outputs,string &filename){
     ifstream file;
     file.open(filename);
     if(file){
@@ -472,7 +460,7 @@ void read_file(vector<Matrix<T>> &data_points,vector<U> &outputs,string &filenam
         string delimiters = ",\n";
         while(getline(file,s)){
             vector<string> tokens = get_tokens(s,delimiters);
-            Matrix<T> data_point;
+            Matrix<double> data_point;
             for(int i = 0;i < tokens.size()-1;i++){
                 data_point.push_back({std::stod(tokens[i])});
             }

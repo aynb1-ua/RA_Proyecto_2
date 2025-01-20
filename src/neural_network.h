@@ -19,6 +19,8 @@ typedef double(*func)(double);
 typedef double(*loss_func)(double,double);
 typedef double(*class_loss_func)(Matrix<double>,Matrix<double>);
 
+
+
 class Neural_Network{
     public:
         Neural_Network();
@@ -67,6 +69,7 @@ class Neural_Network{
         void save_network_raw(int num_network=0, string filename="network__raw_");
         void save_network(int num_network=0,string filename="network_");
         void read_network(string filename);
+        static void read_file(vector<Matrix<double>> &data_points,vector<unsigned int> &outputs,string &filename);
     private:
         //Atributos.
         vector<Matrix<double>> neural_network;
